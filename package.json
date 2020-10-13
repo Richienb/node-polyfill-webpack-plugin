@@ -1,0 +1,30 @@
+{
+	"name": "the-module",
+	"version": "0.0.0",
+	"description": "My awesome module.",
+	"repository": "https://github.com/Richienb/the-module.git",
+	"author": "Richie Bendall <richiebendall@gmail.com>",
+	"license": "MIT",
+	"main": "index.js",
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"engines": {
+		"node": ">=10"
+	},
+	"scripts": {
+		"lint": "xo",
+		"test": "xo && ava"
+	},
+	"keywords": [],
+	"dependencies": {},
+	"devDependencies": {
+		"ava": "^3.13.0",
+		"eslint-config-richienb": "^0.5.0",
+		"xo": "^0.33.1"
+	},
+	"xo": {
+		"extends": "richienb"
+	}
+}
