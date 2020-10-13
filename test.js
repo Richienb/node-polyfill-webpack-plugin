@@ -1,13 +1,15 @@
 const test = require("ava")
-const theModule = require(".")
+const pathExists = require("path-exists")
+const webpack = require("p-webpack")
+const NodePolyfillPlugin = require(".")
 
-test("main", t => {
-	t.throws(() => {
-		theModule(123)
-	}, {
-		instanceOf: TypeError,
-		message: "Expected a string, got number"
+test("main", async t => {
+	await webpack({
+		entry: "./fixture",
+		plugins: [
+			new NodePolyfillPlugin()
+		]
 	})
 
-	t.is(theModule("unicorns"), "unicorns & rainbows")
+	t.true(await pathExists("dist/main.js"))
 })

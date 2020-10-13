@@ -1,41 +1,28 @@
-# the-module [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/the-module/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/the-module)
+# node-polyfill-webpack-plugin [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/node-polyfill-webpack-plugin/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/node-polyfill-webpack-plugin)
 
-My awesome module.
+Polyfill Node.js core modules in Webpack.
 
-[![NPM Badge](https://nodei.co/npm/the-module.png)](https://npmjs.com/package/the-module)
+This module is only needed for [webpack 5+](https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed).
+
+[![NPM Badge](https://nodei.co/npm/node-polyfill-webpack-plugin.png)](https://npmjs.com/package/node-polyfill-webpack-plugin)
 
 ## Install
 
 ```sh
-npm install the-module
+npm install node-polyfill-webpack-plugin
 ```
 
 ## Usage
 
+Add the following to your `webpack.config.js`:
+
 ```js
-const theModule = require("the-module")
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
-theModule("unicorns")
-//=> "unicorns & rainbows"
+module.exports = {
+	// Other rules...
+	plugins: [
+		new NodePolyfillPlugin()
+	]
+}
 ```
-
-## API
-
-### theModule(input, options?)
-
-#### input
-
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-Type: `object`
-
-##### postfix
-
-Type: `string`\
-Default: `rainbows`
-
-Lorem ipsum.

@@ -1,15 +1,7 @@
-/**
-My awesome module.
-@param input Lorem ipsum.
-@param postfix Lorem ipsum.
-@example
-```
-const theModule = require("the-module")
+import { Compiler } from "webpack"
 
-theModule("unicorns")
-//=> "unicorns & rainbows"
-```
-*/
-declare function theModule(input: string, { postfix }: { postfix?: string }): string
+declare class NodePolyfillPlugin {
+	apply(compiler: InstanceType<typeof Compiler>): void
+}
 
-export = theModule
+export = NodePolyfillPlugin
