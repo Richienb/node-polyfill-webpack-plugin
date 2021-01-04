@@ -4,7 +4,7 @@ const { ProvidePlugin } = require("webpack")
 module.exports = class NodePolyfillPlugin {
 	apply(compiler) {
 		compiler.options.plugins.push(new ProvidePlugin({
-			Buffer: "buffer",
+			Buffer: ["buffer", "Buffer"],
 			console: "console-browserify",
 			process: "process/browser"
 		}))
