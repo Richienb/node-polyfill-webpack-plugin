@@ -9,7 +9,7 @@ module.exports = class NodePolyfillPlugin {
 			process: "process/browser"
 		}))
 
-		compiler.options.resolve.alias = {
+		compiler.options.resolve.fallback = {
 			assert: "assert",
 			buffer: "buffer",
 			console: "console-browserify",
@@ -40,7 +40,7 @@ module.exports = class NodePolyfillPlugin {
 			util: "util",
 			vm: "vm-browserify",
 			zlib: "browserify-zlib",
-			...compiler.options.resolve.alias
+			...compiler.options.resolve.fallback
 		}
 	}
 }

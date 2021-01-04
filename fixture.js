@@ -1,4 +1,5 @@
-const a = Buffer.from("")
-const { b } = process.env
+const assert = require("assert")
 
-console.log(a, b)
+assert(true)
+
+module.exports = Buffer.from("Hello World").toString()

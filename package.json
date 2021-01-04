@@ -51,7 +51,6 @@
 		"ava": "^3.15.0",
 		"eslint-config-richienb": "^0.5.0",
 		"p-webpack": "^1.0.1",
-		"path-exists": "^4.0.0",
 		"webpack": "^5.11.1",
 		"xo": "^0.37.1"
 	},
