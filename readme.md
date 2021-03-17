@@ -26,3 +26,22 @@ module.exports = {
 	]
 }
 ```
+
+## Options
+
+### exclude
+
+Specify aliases to skip adding.
+
+```js
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+
+module.exports = {
+	// Other rules...
+	plugins: [
+		new NodePolyfillPlugin({
+			exclude: ["console"]
+		})
+	]
+}
+```

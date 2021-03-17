@@ -1,13 +1,22 @@
 "use strict"
 const { ProvidePlugin } = require("webpack")
+const filterObject = require("filter-obj")
 
 module.exports = class NodePolyfillPlugin {
+	constructor(options = {}) {
+		this.options = { exclude: [], ...options }
+	}
+
 	apply(compiler) {
-		compiler.options.plugins.push(new ProvidePlugin({
+		const provides = {
 			Buffer: ["buffer", "Buffer"],
 			console: "console-browserify",
 			process: "process/browser"
-		}))
+		}
+
+		compiler.options.plugins.push(new ProvidePlugin(
+			filterObject(provides, key => !this.options.exclude.includes(key))
+		))
 
 		compiler.options.resolve.fallback = {
 			assert: "assert",
