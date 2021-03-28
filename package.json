@@ -31,7 +31,7 @@
 		"constants-browserify": "^1.0.0",
 		"crypto-browserify": "^3.12.0",
 		"domain-browser": "^4.19.0",
-		"events": "^3.2.0",
+		"events": "^3.3.0",
 		"filter-obj": "^2.0.1",
 		"https-browserify": "^1.0.0",
 		"os-browserify": "^0.3.0",
@@ -53,8 +53,8 @@
 		"ava": "^3.15.0",
 		"eslint-config-richienb": "^0.6.2",
 		"p-webpack": "^1.0.1",
-		"webpack": "^5.24.1",
-		"xo": "^0.38.1"
+		"webpack": "^5.28.0",
+		"xo": "^0.38.2"
 	},
 	"peerDependencies": {
 		"webpack": ">=5"
