@@ -52,7 +52,7 @@ module.exports = {
 }
 ```
 
-## Aliased
+## Aliases
 
 ### Globals
 
