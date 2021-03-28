@@ -27,11 +27,17 @@ module.exports = {
 }
 ```
 
-## Options
+## API
 
-### exclude
+### new NodePolyfillPlugin(options?)
 
-Specify aliases to skip adding.
+#### options
+
+Type: `object`
+
+#### excludeAliases
+
+Aliases to skip adding. Useful if you don't want a module like `console` to be polyfilled.
 
 ```js
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
@@ -40,8 +46,47 @@ module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin({
-			exclude: ["console"]
+			excludeAliases: ["console"]
 		})
 	]
 }
 ```
+
+## Aliased
+
+### Globals
+
+- `Buffer`
+- `console`
+- `process`
+
+### Modules
+
+- `assert`
+- `buffer`
+- `console`
+- `constants`
+- `crypto`
+- `domain`
+- `events`
+- `http`
+- `https`
+- `os`
+- `path`
+- `punycode`
+- `process`
+- `querystring`
+- `stream`
+- `_stream_duplex`
+- `_stream_passthrough`
+- `_stream_readable`
+- `_stream_transform`
+- `_stream_writable`
+- `string_decoder`
+- `sys`
+- `timers`
+- `tty`
+- `url`
+- `util`
+- `vm`
+- `zlib`

@@ -13,7 +13,7 @@ test("main", async t => {
 		},
 		plugins: [
 			new NodePolyfillPlugin({
-				exclude: ["console"]
+				excludeAliases: ["console"]
 			})
 		]
 	})
@@ -22,6 +22,6 @@ test("main", async t => {
 
 	t.is(require("./dist/main"), "Hello World")
 
-	// https://github.com/browserify/console-browserify/blob/master/index.js#L63
-	t.is(result.includes("No such label: "), false)
+	// https://github.com/browserify/console-browserify/blob/f7eefc7c908c29d2e94954e5c6c1098e8c1028b4/index.js#L63
+	t.false(result.includes("No such label: "))
 })
