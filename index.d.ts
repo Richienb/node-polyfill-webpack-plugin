@@ -5,7 +5,7 @@ declare namespace NodePolyfillPlugin {
 		/**
 		Aliases to skip adding. Useful if you don't want a module like `console` to be polyfilled.
 		*/
-		excludeAliases?: readonly Array<
+		excludeAliases?: ReadonlyArray<
 		| "Buffer"
 		| "console"
 		| "process"
