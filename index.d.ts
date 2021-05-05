@@ -1,12 +1,8 @@
 import { Compiler } from "webpack"
 
 declare namespace NodePolyfillPlugin {
-	export interface Options {
-		/**
-		Aliases to skip adding. Useful if you don't want a module like `console` to be polyfilled.
-		*/
-		excludeAliases?: readonly Array<
-		| "Buffer"
+	export type Alias =
+        | "Buffer"
 		| "console"
 		| "process"
 		| "assert"
@@ -37,7 +33,13 @@ declare namespace NodePolyfillPlugin {
 		| "util"
 		| "vm"
 		| "zlib"
-		>
+
+	
+	export interface Options {
+		/**
+		Aliases to skip adding. Useful if you don't want a module like `console` to be polyfilled.
+		*/
+		excludeAliases?: readonly Alias[]
 	}
 }
 
