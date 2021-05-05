@@ -1,6 +1,6 @@
 {
 	"name": "node-polyfill-webpack-plugin",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Polyfill Node.js core modules in Webpack.",
 	"repository": "https://github.com/Richienb/node-polyfill-webpack-plugin.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
