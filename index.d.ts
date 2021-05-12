@@ -43,7 +43,7 @@ declare namespace NodePolyfillPlugin {
 }
 
 declare class NodePolyfillPlugin {
-	constructor(options: NodePolyfillPlugin.Options)
+	constructor(options?: NodePolyfillPlugin.Options)
 
 	apply(compiler: InstanceType<typeof Compiler>): void
 }
