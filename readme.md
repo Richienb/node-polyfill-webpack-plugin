@@ -37,7 +37,7 @@ Type: `object`
 
 #### excludeAliases
 
-Aliases to skip adding. Useful if you don't want a module like `console` to be polyfilled.
+By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like `console` to be polyfilled you can specify alises to be skipped here.
 
 ```js
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
