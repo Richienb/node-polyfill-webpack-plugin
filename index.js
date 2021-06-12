@@ -16,7 +16,7 @@ module.exports = class NodePolyfillPlugin {
 		compiler.options.plugins.push(new ProvidePlugin(excludeObjectKeys({
 			Buffer: ["buffer", "Buffer"],
 			console: "console-browserify",
-			process: "process/browser"
+			process: "process/browser.js"
 		}, this.options.excludeAliases)))
 
 		compiler.options.resolve.fallback = {
@@ -30,10 +30,10 @@ module.exports = class NodePolyfillPlugin {
 				events: "events",
 				http: "stream-http",
 				https: "https-browserify",
-				os: "os-browserify/browser",
+				os: "os-browserify/browser.js",
 				path: "path-browserify",
 				punycode: "punycode",
-				process: "process/browser",
+				process: "process/browser.js",
 				querystring: "querystring-es3",
 				stream: "stream-browserify",
 				/* eslint-disable camelcase */
