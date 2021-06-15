@@ -18,10 +18,8 @@ test("main", async t => {
 		]
 	})
 
-	const result = fs.readFileSync("./dist/main.js").toString()
-
-	t.is(require("./dist/main"), "Hello World")
+	t.is(require("./dist/main.js"), "Hello World")
 
 	// https://github.com/browserify/console-browserify/blob/f7eefc7c908c29d2e94954e5c6c1098e8c1028b4/index.js#L63
-	t.false(result.includes("No such label: "))
+	t.false(fs.readFileSync("./dist/main.js").toString().includes("No such label: "))
 })
