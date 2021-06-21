@@ -1,4 +1,4 @@
-# node-polyfill-webpack-plugin [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/node-polyfill-webpack-plugin/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/node-polyfill-webpack-plugin)
+# node-polyfill-webpack-plugin
 
 Polyfill Node.js core modules in Webpack.
 
