@@ -13,11 +13,14 @@ module.exports = class NodePolyfillPlugin {
 	}
 
 	apply(compiler) {
-		compiler.options.plugins.push(new ProvidePlugin(excludeObjectKeys({
-			Buffer: [require.resolve("buffer/"), "Buffer"],
-			console: require.resolve("console-browserify"),
-			process: require.resolve("process/browser")
-		}, this.options.excludeAliases)))
+		compiler.options.plugins.push(new ProvidePlugin({
+			...excludeObjectKeys({
+				Buffer: [require.resolve("buffer/"), "Buffer"],
+				console: require.resolve("console-browserify"),
+				process: require.resolve("process/browser")
+			}, this.options.excludeAliases),
+			...compiler.options.plugins
+		}))
 
 		compiler.options.resolve.fallback = {
 			...excludeObjectKeys({
