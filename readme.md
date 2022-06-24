@@ -35,7 +35,7 @@ module.exports = {
 
 Type: `object`
 
-The `excludeAliases` and `includeAliases` key are mutally exclusive.
+`excludeAliases` and `includeAliases` are mutually exclusive.
 
 #### excludeAliases
 
