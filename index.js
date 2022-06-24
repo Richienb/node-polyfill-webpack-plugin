@@ -2,7 +2,7 @@
 const { ProvidePlugin } = require("webpack")
 const filterObject = require("filter-obj")
 
-const createAliasFilter = ({ includeAliases, excludeAliases }) => {
+function createAliasFilter({ includeAliases, excludeAliases }) {
 	if (includeAliases.length > 0) {
 		return object => filterObject(object, key => includeAliases.includes(key))
 	}
