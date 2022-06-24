@@ -35,6 +35,8 @@ module.exports = {
 
 Type: `object`
 
+`excludeAliases` and `includeAliases` are mutually exclusive.
+
 #### excludeAliases
 
 By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like `console` to be polyfilled you can specify alises to be skipped here.
@@ -47,6 +49,23 @@ module.exports = {
 	plugins: [
 		new NodePolyfillPlugin({
 			excludeAliases: ["console"]
+		})
+	]
+}
+```
+
+#### includeAliases
+
+Alternatively, you can choose to only include certain aliases. For example, you can only have `console` polyfilled.
+
+```js
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+
+module.exports = {
+	// Other rules...
+	plugins: [
+		new NodePolyfillPlugin({
+			includeAliases: ["console"]
 		})
 	]
 }

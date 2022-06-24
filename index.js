@@ -2,25 +2,38 @@
 const { ProvidePlugin } = require("webpack")
 const filterObject = require("filter-obj")
 
-const excludeObjectKeys = (object, excludeKeys) => filterObject(object, key => !excludeKeys.includes(key))
+function createAliasFilter({ includeAliases, excludeAliases }) {
+	if (includeAliases.length > 0) {
+		return object => filterObject(object, key => includeAliases.includes(key))
+	}
+
+	return object => filterObject(object, key => !excludeAliases.includes(key))
+}
 
 module.exports = class NodePolyfillPlugin {
 	constructor(options = {}) {
 		this.options = {
 			excludeAliases: [],
+			includeAliases: [],
 			...options
+		}
+
+		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
+			throw new Error("excludeAliases and includeAliases are mutually exclusive")
 		}
 	}
 
 	apply(compiler) {
-		compiler.options.plugins.push(new ProvidePlugin(excludeObjectKeys({
+		const filter = createAliasFilter(this.options)
+
+		compiler.options.plugins.push(new ProvidePlugin(filter({
 			Buffer: [require.resolve("buffer/"), "Buffer"],
 			console: require.resolve("console-browserify"),
 			process: require.resolve("process/browser")
-		}, this.options.excludeAliases)))
+		})))
 
 		compiler.options.resolve.fallback = {
-			...excludeObjectKeys({
+			...filter({
 				assert: require.resolve("assert/"),
 				buffer: require.resolve("buffer/"),
 				console: require.resolve("console-browserify"),
@@ -51,7 +64,7 @@ module.exports = class NodePolyfillPlugin {
 				util: require.resolve("util/"),
 				vm: require.resolve("vm-browserify"),
 				zlib: require.resolve("browserify-zlib")
-			}, this.options.excludeAliases),
+			}),
 			...compiler.options.resolve.fallback
 		}
 	}
