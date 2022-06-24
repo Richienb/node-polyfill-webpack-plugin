@@ -51,7 +51,7 @@ test.serial("includeAliases", async t => {
 	t.false(fs.readFileSync("./dist/main.js").toString().includes("is invalid for option \"size\""))
 })
 
-test("Test Error", t => {
+test("includeAliases and excludeAliases used at the same time", t => {
 	t.throws(() => new NodePolyfillPlugin({
 		includeAliases: ["console"],
 		excludeAliases: ["crypto"]
