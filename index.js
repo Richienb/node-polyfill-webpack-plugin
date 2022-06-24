@@ -7,7 +7,7 @@ const filterObjectKeys = (object, keys, isInclude) => filterObject(object, key =
 module.exports = class NodePolyfillPlugin {
 	constructor({ excludeAliases = [], includeAliases = [] } = {}) {
 		if (includeAliases.length > 0 && excludeAliases.length > 0) {
-			throw new Error("Unable to use excludeAliases and includeAliases options!")
+			throw new Error("excludeAliases and includeAliases are mutually exclusive!")
 		}
 
 		this.options = { excludeAliases, includeAliases }
