@@ -4,8 +4,6 @@ Polyfill Node.js core modules in Webpack.
 
 This module is only needed for [webpack 5+](https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed).
 
-[![NPM Badge](https://nodei.co/npm/node-polyfill-webpack-plugin.png)](https://npmjs.com/package/node-polyfill-webpack-plugin)
-
 ## Install
 
 ```sh
@@ -17,14 +15,14 @@ npm install node-polyfill-webpack-plugin
 Add the following to your `webpack.config.js`:
 
 ```js
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin()
 	]
-}
+};
 ```
 
 ## API
@@ -42,16 +40,16 @@ Type: `object`
 By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like `console` to be polyfilled you can specify alises to be skipped here.
 
 ```js
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin({
-			excludeAliases: ["console"]
+			excludeAliases: ['console']
 		})
 	]
-}
+};
 ```
 
 #### includeAliases
@@ -59,16 +57,16 @@ module.exports = {
 Alternatively, you can choose to only include certain aliases. For example, you can only have `console` polyfilled.
 
 ```js
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin({
-			includeAliases: ["console"]
+			includeAliases: ['console']
 		})
 	]
-}
+};
 ```
 
 ## Aliases

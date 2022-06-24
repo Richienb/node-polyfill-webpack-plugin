@@ -1,7 +1,7 @@
-const assert = require("assert")
+const assert = require('assert');
 
-assert(true)
+assert(true);
 
-console.clear()
+console.clear();
 
-module.exports = Buffer.from("Hello World").toString()
+module.exports = Buffer.from('Hello World').toString();
