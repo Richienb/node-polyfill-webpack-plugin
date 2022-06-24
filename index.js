@@ -19,7 +19,7 @@ module.exports = class NodePolyfillPlugin {
 		}
 
 		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
-			throw new Error("excludeAliases and includeAliases are mutually exclusive!")
+			throw new Error("excludeAliases and includeAliases are mutually exclusive")
 		}
 	}
 
