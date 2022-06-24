@@ -27,7 +27,7 @@ test.serial("main", async t => {
 	t.true(fs.readFileSync("./dist/main.js").toString().includes("is invalid for option \"size\""))
 })
 
-test.serial("Test Include", async t => {
+test.serial("includeAliases", async t => {
 	await webpack({
 		entry: "./fixture",
 		output: {
