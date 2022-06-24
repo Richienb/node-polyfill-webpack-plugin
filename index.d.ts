@@ -36,13 +36,18 @@ declare namespace NodePolyfillPlugin {
         | "zlib"
 
 	interface Include {
+		/**
+                By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like console to be polyfilled you can specify alises to be skipped here.
+                */
 		includeAliases?: readonly Alias[]
 	}
 
 	interface Exclude {
+		/**
+                By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, you can choose to only include certain aliases. For example, you can only have `console` polyfilled.
+                */
 		excludeAliases?: readonly Alias[]
 	}
-
 	export type Options = MergeExclusive<Include, Exclude>
 }
 
