@@ -54,7 +54,7 @@ module.exports = {
 
 #### includeAliases
 
-Alternatively, you can chose to only include certain aliases. In this example, only `console` wil be polyfilled.
+Alternatively, you can choose to only include certain aliases. For example, you can only have `console` polyfilled.
 
 ```js
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
