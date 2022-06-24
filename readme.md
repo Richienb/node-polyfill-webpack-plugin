@@ -35,6 +35,8 @@ module.exports = {
 
 Type: `object`
 
+The `excludeAliases` and `includeAliases` key are mutally exclusive.
+
 #### excludeAliases
 
 By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like `console` to be polyfilled you can specify alises to be skipped here.

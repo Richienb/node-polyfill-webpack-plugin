@@ -2,21 +2,27 @@
 const { ProvidePlugin } = require("webpack")
 const filterObject = require("filter-obj")
 
-const filterObjectKeys = (object, keys, isInclude) => filterObject(object, key => keys.includes(key) === isInclude)
+const filterObjectKeys = (includeAliases, excludeAliases) => {
+	const isInclude = includeAliases.length > 0
+	const keys = isInclude ? includeAliases : excludeAliases
+	return object => filterObject(object, key => keys.includes(key) === isInclude)
+}
 
 module.exports = class NodePolyfillPlugin {
-	constructor({ excludeAliases = [], includeAliases = [] } = {}) {
-		if (includeAliases.length > 0 && excludeAliases.length > 0) {
-			throw new Error("excludeAliases and includeAliases are mutually exclusive!")
+	constructor(options = {}) {
+		this.options = {
+			excludeAliases: [],
+			includeAliases: [],
+			...options
 		}
 
-		this.options = { excludeAliases, includeAliases }
+		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
+			throw new Error("excludeAliases and includeAliases are mutually exclusive!")
+		}
 	}
 
 	apply(compiler) {
-		const isInclude = this.options.includeAliases.length > 0
-		const keys = isInclude ? this.options.includeAliases : this.options.excludeAliases
-		const filterFunc = object => filterObjectKeys(object, keys, isInclude)
+		const filterFunc = filterObjectKeys(this.options.includeAliases, this.options.excludeAliases)
 
 		compiler.options.plugins.push(new ProvidePlugin(filterFunc({
 			Buffer: [require.resolve("buffer/"), "Buffer"],
