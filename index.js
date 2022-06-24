@@ -2,10 +2,12 @@
 const { ProvidePlugin } = require("webpack")
 const filterObject = require("filter-obj")
 
-const filterObjectKeys = (includeAliases, excludeAliases) => {
-	const isInclude = includeAliases.length > 0
-	const keys = isInclude ? includeAliases : excludeAliases
-	return object => filterObject(object, key => keys.includes(key) === isInclude)
+const createAliasFilter = ({ includeAliases, excludeAliases }) => {
+	if (includeAliases.length > 0) {
+		return object => filterObject(object, key => includeAliases.includes(key))
+	}
+
+	return object => filterObject(object, key => !excludeAliases.includes(key))
 }
 
 module.exports = class NodePolyfillPlugin {
@@ -22,16 +24,16 @@ module.exports = class NodePolyfillPlugin {
 	}
 
 	apply(compiler) {
-		const filterFunc = filterObjectKeys(this.options.includeAliases, this.options.excludeAliases)
+		const filter = createAliasFilter(this.options)
 
-		compiler.options.plugins.push(new ProvidePlugin(filterFunc({
+		compiler.options.plugins.push(new ProvidePlugin(filter({
 			Buffer: [require.resolve("buffer/"), "Buffer"],
 			console: require.resolve("console-browserify"),
 			process: require.resolve("process/browser")
 		})))
 
 		compiler.options.resolve.fallback = {
-			...filterFunc({
+			...filter({
 				assert: require.resolve("assert/"),
 				buffer: require.resolve("buffer/"),
 				console: require.resolve("console-browserify"),
