@@ -2,7 +2,7 @@
 
 Polyfill Node.js core modules in Webpack.
 
-This module is only needed for [webpack 5+](https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed).
+This module is only needed for [Webpack 5+](https://github.com/webpack/changelog-v5#automatic-nodejs-polyfills-removed).
 
 ## Install
 
