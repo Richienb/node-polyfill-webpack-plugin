@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 import {MergeExclusive} from 'type-fest';
 import {Compiler} from 'webpack';
 
