@@ -41,6 +41,7 @@ module.exports = class NodePolyfillPlugin {
 				crypto: require.resolve('crypto-browserify'),
 				domain: require.resolve('domain-browser'),
 				events: require.resolve('events/'),
+				fs: false,
 				http: require.resolve('stream-http'),
 				https: require.resolve('https-browserify'),
 				os: require.resolve('os-browserify/browser'),
