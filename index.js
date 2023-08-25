@@ -1,13 +1,18 @@
 'use strict';
 const {ProvidePlugin} = require('webpack');
-const filterObject = require('filter-obj');
 
 function createAliasFilter({includeAliases, excludeAliases}) {
 	if (includeAliases.length > 0) {
-		return object => filterObject(object, key => includeAliases.includes(key));
+		return object => Object.keys(object).filter(key => includeAliases.includes(key)).reduce((filtered, key) => {
+			filtered[key] = object[key];
+			return filtered;
+		}, {});
 	}
 
-	return object => filterObject(object, key => !excludeAliases.includes(key));
+	return object => Object.keys(object).filter(key => !excludeAliases.includes(key)).reduce((filtered, key) => {
+		filtered[key] = object[key];
+		return filtered;
+	}, {});
 }
 
 module.exports = class NodePolyfillPlugin {

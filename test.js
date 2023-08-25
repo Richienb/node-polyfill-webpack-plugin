@@ -1,7 +1,7 @@
-const fs = require('fs');
+const fs = require('node:fs');
 const test = require('ava');
 const webpack = require('p-webpack');
-const NodePolyfillPlugin = require('.');
+const NodePolyfillPlugin = require('./index');
 
 test('main', async t => {
 	await webpack({

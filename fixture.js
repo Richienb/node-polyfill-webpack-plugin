@@ -1,4 +1,5 @@
-const assert = require('assert');
+const assert = require('node:assert');
+const {Buffer} = require('node:buffer');
 
 assert(true);
 
