@@ -62,11 +62,12 @@
 	},
 	"xo":{
 		"rules": {
-			"import/extensions": "off",
 			"unicorn/prefer-module": "off",
 			"comma-dangle": "off",
-			"import/newline-after-import": "off",
 			"unicorn/no-array-reduce": "off"
-		}
+		},
+		"ignores": [
+			"fixture.js"
+		]
 	}
 }
