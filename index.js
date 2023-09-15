@@ -1,5 +1,5 @@
 'use strict';
-const {ProvidePlugin} = require('webpack');
+
 const filterObject = require('filter-obj');
 
 function createAliasFilter({includeAliases, excludeAliases}) {
@@ -24,6 +24,7 @@ module.exports = class NodePolyfillPlugin {
 	}
 
 	apply(compiler) {
+		const {ProvidePlugin} = compiler.webpack;
 		const filter = createAliasFilter(this.options);
 
 		compiler.options.plugins.push(new ProvidePlugin(filter({
