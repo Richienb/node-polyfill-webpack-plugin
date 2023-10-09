@@ -1,16 +1,28 @@
 'use strict';
 function createAliasFilter({includeAliases, excludeAliases}) {
 	if (includeAliases.length > 0) {
-		return object => Object.keys(object).filter(key => includeAliases.includes(key)).reduce((filtered, key) => {
-			filtered[key] = object[key];
+		return object => {
+			const filtered = {};
+			for (const key of Object.keys(object)) {
+				if (includeAliases.includes(key)) {
+					filtered[key] = object[key];
+				}
+			}
+
 			return filtered;
-		}, {});
+		};
 	}
 
-	return object => Object.keys(object).filter(key => !excludeAliases.includes(key)).reduce((filtered, key) => {
-		filtered[key] = object[key];
+	return object => {
+		const filtered = {};
+		for (const key of Object.keys(object)) {
+			if (!excludeAliases.includes(key)) {
+				filtered[key] = object[key];
+			}
+		}
+
 		return filtered;
-	}, {});
+	};
 }
 
 module.exports = class NodePolyfillPlugin {

@@ -60,11 +60,10 @@
 	"peerDependencies": {
 		"webpack": ">=5"
 	},
-	"xo":{
+	"xo": {
 		"rules": {
 			"unicorn/prefer-module": "off",
-			"comma-dangle": "off",
-			"unicorn/no-array-reduce": "off"
+			"comma-dangle": "off"
 		},
 		"ignores": [
 			"fixture.js"
