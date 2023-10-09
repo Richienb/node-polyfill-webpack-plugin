@@ -38,7 +38,7 @@ module.exports = class NodePolyfillPlugin {
 		this.options = {
 			excludeAliases: [],
 			includeAliases: [],
-			...options
+			...options,
 		};
 
 		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
@@ -52,7 +52,7 @@ module.exports = class NodePolyfillPlugin {
 		compiler.options.plugins.push(new compiler.webpack.ProvidePlugin(filter({
 			Buffer: [require.resolve('buffer/'), 'Buffer'],
 			console: require.resolve('console-browserify'),
-			process: require.resolve('process/browser')
+			process: require.resolve('process/browser'),
 		})));
 
 		compiler.options.resolve.fallback = {
@@ -86,9 +86,9 @@ module.exports = class NodePolyfillPlugin {
 				url: require.resolve('url/'),
 				util: require.resolve('util/'),
 				vm: require.resolve('vm-browserify'),
-				zlib: require.resolve('browserify-zlib')
+				zlib: require.resolve('browserify-zlib'),
 			}),
-			...compiler.options.resolve.fallback
+			...compiler.options.resolve.fallback,
 		};
 	}
 };

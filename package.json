@@ -62,8 +62,7 @@
 	},
 	"xo": {
 		"rules": {
-			"unicorn/prefer-module": "off",
-			"comma-dangle": "off"
+			"unicorn/prefer-module": "off"
 		},
 		"ignores": [
 			"fixture.js"
