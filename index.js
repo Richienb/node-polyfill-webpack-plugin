@@ -23,10 +23,9 @@ module.exports = class NodePolyfillPlugin {
 	}
 
 	apply(compiler) {
-		const {ProvidePlugin} = compiler.webpack;
 		const filter = createAliasFilter(this.options);
 
-		compiler.options.plugins.push(new ProvidePlugin(filter({
+		compiler.options.plugins.push(new compiler.webpack.ProvidePlugin(filter({
 			Buffer: [require.resolve('buffer/'), 'Buffer'],
 			console: require.resolve('console-browserify'),
 			process: require.resolve('process/browser')
