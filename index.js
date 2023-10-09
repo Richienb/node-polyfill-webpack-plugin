@@ -1,6 +1,4 @@
 'use strict';
-const {ProvidePlugin} = require('webpack');
-
 function createAliasFilter({includeAliases, excludeAliases}) {
 	if (includeAliases.length > 0) {
 		return object => Object.keys(object).filter(key => includeAliases.includes(key)).reduce((filtered, key) => {
@@ -31,7 +29,7 @@ module.exports = class NodePolyfillPlugin {
 	apply(compiler) {
 		const filter = createAliasFilter(this.options);
 
-		compiler.options.plugins.push(new ProvidePlugin(filter({
+		compiler.options.plugins.push(new compiler.webpack.ProvidePlugin(filter({
 			Buffer: [require.resolve('buffer/'), 'Buffer'],
 			console: require.resolve('console-browserify'),
 			process: require.resolve('process/browser')
