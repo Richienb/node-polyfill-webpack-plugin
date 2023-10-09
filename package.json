@@ -63,9 +63,6 @@
 	"xo": {
 		"rules": {
 			"unicorn/prefer-module": "off"
-		},
-		"ignores": [
-			"fixture.js"
-		]
+		}
 	}
 }

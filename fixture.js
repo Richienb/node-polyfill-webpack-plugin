@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-node-protocol, n/prefer-global/buffer */
 const assert = require('assert');
 
 assert(true);
