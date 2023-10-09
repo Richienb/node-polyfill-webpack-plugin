@@ -1,5 +1,5 @@
 'use strict';
-export function includeKeys(object, predicate) {
+function includeKeys(object, predicate) {
 	const result = {};
 
 	if (Array.isArray(predicate)) {
@@ -19,7 +19,7 @@ export function includeKeys(object, predicate) {
 	return result;
 }
 
-export function excludeKeys(object, keys) {
+function excludeKeys(object, keys) {
 	const set = new Set(keys);
 
 	return includeKeys(object, key => !set.has(key));
