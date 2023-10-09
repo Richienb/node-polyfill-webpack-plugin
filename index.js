@@ -1,5 +1,4 @@
 'use strict';
-
 const filterObject = require('filter-obj');
 
 function createAliasFilter({includeAliases, excludeAliases}) {
