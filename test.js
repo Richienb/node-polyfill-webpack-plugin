@@ -1,22 +1,22 @@
-const fs = require('fs');
+const fs = require('node:fs');
 const test = require('ava');
 const webpack = require('p-webpack');
-const NodePolyfillPlugin = require('.');
+const NodePolyfillPlugin = require('./index.js');
 
 test('main', async t => {
 	await webpack({
 		entry: './fixture',
 		output: {
 			library: {
-				type: 'commonjs-module'
+				type: 'commonjs-module',
 			},
-			filename: '1.js'
+			filename: '1.js',
 		},
 		plugins: [
 			new NodePolyfillPlugin({
-				excludeAliases: ['console']
-			})
-		]
+				excludeAliases: ['console'],
+			}),
+		],
 	});
 
 	t.is(require('./dist/1.js'), 'Hello World');
@@ -33,15 +33,15 @@ test('includeAliases', async t => {
 		entry: './fixture',
 		output: {
 			library: {
-				type: 'commonjs-module'
+				type: 'commonjs-module',
 			},
-			filename: '2.js'
+			filename: '2.js',
 		},
 		plugins: [
 			new NodePolyfillPlugin({
-				includeAliases: ['console']
-			})
-		]
+				includeAliases: ['console'],
+			}),
+		],
 	});
 
 	t.is(require('./dist/2.js'), 'Hello World');
@@ -56,6 +56,6 @@ test('includeAliases', async t => {
 test('includeAliases and excludeAliases used at the same time', t => {
 	t.throws(() => new NodePolyfillPlugin({
 		includeAliases: ['console'],
-		excludeAliases: ['crypto']
+		excludeAliases: ['crypto'],
 	}), {instanceOf: Error});
 });

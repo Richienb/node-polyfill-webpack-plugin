@@ -1,12 +1,38 @@
 'use strict';
-const filterObject = require('filter-obj');
+// https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L1-L25
+function includeKeys(object, predicate) {
+	const result = {};
+
+	if (Array.isArray(predicate)) {
+		for (const key of predicate) {
+			result[key] = object[key];
+		}
+	} else {
+		for (const key of Object.keys(object)) {
+			const value = object[key];
+
+			if (predicate(key, value, object)) {
+				result[key] = value;
+			}
+		}
+	}
+
+	return result;
+}
+
+// https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L27-L34
+function excludeKeys(object, keys) {
+	const set = new Set(keys);
+
+	return includeKeys(object, key => !set.has(key));
+}
 
 function createAliasFilter({includeAliases, excludeAliases}) {
 	if (includeAliases.length > 0) {
-		return object => filterObject(object, key => includeAliases.includes(key));
+		return object => includeKeys(object, includeAliases);
 	}
 
-	return object => filterObject(object, key => !excludeAliases.includes(key));
+	return object => excludeKeys(object, excludeAliases);
 }
 
 module.exports = class NodePolyfillPlugin {
@@ -14,7 +40,7 @@ module.exports = class NodePolyfillPlugin {
 		this.options = {
 			excludeAliases: [],
 			includeAliases: [],
-			...options
+			...options,
 		};
 
 		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
@@ -28,7 +54,7 @@ module.exports = class NodePolyfillPlugin {
 		compiler.options.plugins.push(new compiler.webpack.ProvidePlugin(filter({
 			Buffer: [require.resolve('buffer/'), 'Buffer'],
 			console: require.resolve('console-browserify'),
-			process: require.resolve('process/browser')
+			process: require.resolve('process/browser'),
 		})));
 
 		compiler.options.resolve.fallback = {
@@ -62,9 +88,9 @@ module.exports = class NodePolyfillPlugin {
 				url: require.resolve('url/'),
 				util: require.resolve('util/'),
 				vm: require.resolve('vm-browserify'),
-				zlib: require.resolve('browserify-zlib')
+				zlib: require.resolve('browserify-zlib'),
 			}),
-			...compiler.options.resolve.fallback
+			...compiler.options.resolve.fallback,
 		};
 	}
 };
