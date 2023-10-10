@@ -1,5 +1,5 @@
 'use strict';
-# https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L1-L25
+// https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L1-L25
 function includeKeys(object, predicate) {
 	const result = {};
 
@@ -20,7 +20,7 @@ function includeKeys(object, predicate) {
 	return result;
 }
 
-# https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L27-L34
+// https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L27-L34
 function excludeKeys(object, keys) {
 	const set = new Set(keys);
 
