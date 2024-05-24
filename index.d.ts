@@ -33,21 +33,26 @@ declare namespace NodePolyfillPlugin {
 		| 'vm'
 		| 'zlib';
 
-	export type IncludeOptions = {
+	export type OnlyAliasesOptions = {
 		/**
-		By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, you can choose to only include certain aliases. For example, you can only have `console` polyfilled.
+		You can choose to only include certain aliases, ignoring the defaults. For example, you can have only `console` polyfilled.
 		*/
-		includeAliases?: readonly Alias[];
+		onlyAliases?: readonly Alias[];
 	};
 
-	export type ExcludeOptions = {
+	export type AdditionalExcludeAliasesOptions = {
 		/**
-		By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like `console` to be polyfilled you can specify alises to be skipped here.
+		You can choose to add certain aliases to the list of polyfilled modules. For example, you can choose to polyfill `console`.
+		*/
+		additionalAliases?: readonly Alias[];
+
+		/**
+		If you don't want a module to be polyfilled, you can specify aliases to be skipped here.
 		*/
 		excludeAliases?: readonly Alias[];
 	};
 
-	export type Options = MergeExclusive<IncludeOptions, ExcludeOptions>;
+	export type Options = MergeExclusive<OnlyAliasesOptions, AdditionalExcludeAliasesOptions>;
 }
 
 declare class NodePolyfillPlugin {
