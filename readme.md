@@ -20,7 +20,22 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 module.exports = {
 	// Other rules...
 	plugins: [
-		new NodePolyfillPlugin()
+		new NodePolyfillPlugin(),
+	]
+};
+```
+
+`console`, `process`, and most deprecated/internal Node.js core modules are not polyfilled by default. If you still need to polyfill them, you can use the `additionalAliases` option:
+
+```js
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+
+module.exports = {
+	// Other rules...
+	plugins: [
+		new NodePolyfillPlugin({
+			additionalAliases: ['process', 'punycode'],
+		})
 	]
 };
 ```
@@ -35,11 +50,11 @@ The `fs` module resolves to nothing because its functionality cannot replicated 
 
 Type: `object`
 
-`excludeAliases` and `includeAliases` are mutually exclusive.
+`onlyAliases` is mutually exclusive with `excludeAliases` and `additionalAliases`.
 
 #### excludeAliases
 
-By default, the modules that were polyfilled in Webpack 4 are mirrored over. However, if you don't want a module like `console` to be polyfilled you can specify alises to be skipped here.
+If you don't want a module to be polyfilled, you can specify aliases to be skipped here.
 
 ```js
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
@@ -48,15 +63,15 @@ module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin({
-			excludeAliases: ['console']
+			excludeAliases: ['console'],
 		})
 	]
 };
 ```
 
-#### includeAliases
+#### additionalAliases
 
-Alternatively, you can choose to only include certain aliases. For example, you can only have `console` polyfilled.
+Alternatively, you can choose to add certain aliases to the list of polyfilled modules. For example, you can choose to polyfill `console`.
 
 ```js
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
@@ -65,7 +80,24 @@ module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin({
-			includeAliases: ['console']
+			additionalAliases: ['console'],
+		})
+	]
+};
+```
+
+#### onlyAliases
+
+You can also choose to only include certain aliases, ignoring the defaults. For example, you can have only `console` polyfilled.
+
+```js
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+
+module.exports = {
+	// Other rules...
+	plugins: [
+		new NodePolyfillPlugin({
+			onlyAliases: ['console'],
 		})
 	]
 };

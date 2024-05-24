@@ -1,35 +1,101 @@
 'use strict';
-const {ProvidePlugin} = require('webpack');
-const filterObject = require('filter-obj');
+// https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L1-L25
+function includeKeys(object, predicate) {
+	const result = {};
 
-function createAliasFilter({includeAliases, excludeAliases}) {
-	if (includeAliases.length > 0) {
-		return object => filterObject(object, key => includeAliases.includes(key));
+	if (Array.isArray(predicate)) {
+		for (const key of predicate) {
+			result[key] = object[key];
+		}
+	} else {
+		for (const key of Object.keys(object)) {
+			const value = object[key];
+
+			if (predicate(key, value, object)) {
+				result[key] = value;
+			}
+		}
 	}
 
-	return object => filterObject(object, key => !excludeAliases.includes(key));
+	return result;
+}
+
+const defaultPolyfills = new Set([
+	'assert',
+	'buffer',
+	'Buffer',
+	'constants',
+	'crypto',
+	'events',
+	'http',
+	'https',
+	'os',
+	'path',
+	'querystring',
+	'stream',
+	'string_decoder',
+	'sys',
+	'timers',
+	'tty',
+	'url',
+	'util',
+	'vm',
+	'zlib',
+]);
+
+function createAliasFilter({excludeAliases, onlyAliases, additionalAliases}) {
+	if (onlyAliases.length > 0) {
+		return object => includeKeys(object, onlyAliases);
+	}
+
+	if (additionalAliases.length > 0) {
+		return object => includeKeys(object, key => (defaultPolyfills.has(key) && !excludeAliases.includes(key)) || additionalAliases.includes(key));
+	}
+
+	return object => includeKeys(object, key => defaultPolyfills.has(key) && !excludeAliases.includes(key));
+}
+
+function areItemsUnique(...iterables) {
+	const seen = new Set();
+
+	for (const iterable of iterables) {
+		for (const item of iterable) {
+			if (seen.has(item)) {
+				return false;
+			}
+
+			seen.add(item);
+		}
+	}
+
+	return true;
 }
 
 module.exports = class NodePolyfillPlugin {
 	constructor(options = {}) {
 		this.options = {
 			excludeAliases: [],
-			includeAliases: [],
-			...options
+			onlyAliases: [],
+			additionalAliases: [],
+			...options,
 		};
 
-		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
-			throw new Error('excludeAliases and includeAliases are mutually exclusive');
+		if (this.options.onlyAliases.length > 0) {
+			if (this.options.excludeAliases.length > 0 || this.options.additionalAliases.length > 0) {
+				throw new Error('onlyAliases is mutually exclusive with excludeAliases and additionalAliases');
+			}
+		} else if (!areItemsUnique(this.options.excludeAliases, this.options.additionalAliases)) {
+			throw new Error('excludeAliases and additionalAliases must not include the same items');
 		}
 	}
 
 	apply(compiler) {
 		const filter = createAliasFilter(this.options);
 
-		compiler.options.plugins.push(new ProvidePlugin(filter({
+		compiler.options.plugins.push(new compiler.webpack.ProvidePlugin(filter({
 			Buffer: [require.resolve('buffer/'), 'Buffer'],
 			console: require.resolve('console-browserify'),
-			process: require.resolve('process/browser')
+			process: require.resolve('process/browser'),
 		})));
 
 		compiler.options.resolve.fallback = {
@@ -64,9 +130,9 @@ module.exports = class NodePolyfillPlugin {
 				url: require.resolve('url/'),
 				util: require.resolve('util/'),
 				vm: require.resolve('vm-browserify'),
-				zlib: require.resolve('browserify-zlib')
+				zlib: require.resolve('browserify-zlib'),
 			}),
-			...compiler.options.resolve.fallback
+			...compiler.options.resolve.fallback,
 		};
 	}
 };
