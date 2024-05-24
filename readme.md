@@ -21,7 +21,7 @@ module.exports = {
 	// Other rules...
 	plugins: [
 		new NodePolyfillPlugin(),
-	]
+	],
 };
 ```
 
@@ -35,8 +35,8 @@ module.exports = {
 	plugins: [
 		new NodePolyfillPlugin({
 			additionalAliases: ['process', 'punycode'],
-		})
-	]
+		}),
+	],
 };
 ```
 
@@ -64,8 +64,8 @@ module.exports = {
 	plugins: [
 		new NodePolyfillPlugin({
 			excludeAliases: ['console'],
-		})
-	]
+		}),
+	],
 };
 ```
 
@@ -81,8 +81,8 @@ module.exports = {
 	plugins: [
 		new NodePolyfillPlugin({
 			additionalAliases: ['console'],
-		})
-	]
+		}),
+	],
 };
 ```
 
@@ -98,8 +98,8 @@ module.exports = {
 	plugins: [
 		new NodePolyfillPlugin({
 			onlyAliases: ['console'],
-		})
-	]
+		}),
+	],
 };
 ```
 
