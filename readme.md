@@ -40,6 +40,8 @@ module.exports = {
 };
 ```
 
+The `fs` module resolves to nothing because its functionality cannot replicated in the browser.
+
 ## API
 
 ### new NodePolyfillPlugin(options?)

@@ -11,6 +11,7 @@ declare namespace NodePolyfillPlugin {
 		| 'crypto'
 		| 'domain'
 		| 'events'
+		| 'fs'
 		| 'http'
 		| 'https'
 		| 'os'
