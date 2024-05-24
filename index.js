@@ -27,6 +27,7 @@ const defaultPolyfills = new Set([
 	'constants',
 	'crypto',
 	'events',
+	'fs',
 	'http',
 	'https',
 	'os',
