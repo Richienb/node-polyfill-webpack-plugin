@@ -20,31 +20,72 @@ function includeKeys(object, predicate) {
 	return result;
 }
 
-// https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L27-L34
-function excludeKeys(object, keys) {
-	const set = new Set(keys);
+const defaultPolyfills = new Set([
+	'assert',
+	'buffer',
+	'Buffer',
+	'constants',
+	'crypto',
+	'events',
+	'http',
+	'https',
+	'os',
+	'path',
+	'querystring',
+	'stream',
+	'string_decoder',
+	'sys',
+	'timers',
+	'tty',
+	'url',
+	'util',
+	'vm',
+	'zlib',
+]);
 
-	return includeKeys(object, key => !set.has(key));
-}
-
-function createAliasFilter({includeAliases, excludeAliases}) {
-	if (includeAliases.length > 0) {
-		return object => includeKeys(object, includeAliases);
+function createAliasFilter({excludeAliases, onlyAliases, additionalAliases}) {
+	if (onlyAliases.length > 0) {
+		return object => includeKeys(object, onlyAliases);
 	}
 
-	return object => excludeKeys(object, excludeAliases);
+	if (additionalAliases.length > 0) {
+		return object => includeKeys(object, key => (defaultPolyfills.has(key) && !excludeAliases.includes(key)) || additionalAliases.includes(key));
+	}
+
+	return object => includeKeys(object, key => defaultPolyfills.has(key) && !excludeAliases.includes(key));
+}
+
+function areItemsUnique(...iterables) {
+	const seen = new Set();
+
+	for (const iterable of iterables) {
+		for (const item of iterable) {
+			if (seen.has(item)) {
+				return false;
+			}
+
+			seen.add(item);
+		}
+	}
+
+	return true;
 }
 
 module.exports = class NodePolyfillPlugin {
 	constructor(options = {}) {
 		this.options = {
 			excludeAliases: [],
-			includeAliases: [],
+			onlyAliases: [],
+			additionalAliases: [],
 			...options,
 		};
 
-		if (this.options.includeAliases.length > 0 && this.options.excludeAliases.length > 0) {
-			throw new Error('excludeAliases and includeAliases are mutually exclusive');
+		if (this.options.onlyAliases.length > 0) {
+			if (this.options.excludeAliases.length > 0 || this.options.additionalAliases.length > 0) {
+				throw new Error('onlyAliases is mutually exclusive with excludeAliases and additionalAliases');
+			}
+		} else if (!areItemsUnique(this.options.excludeAliases, this.options.additionalAliases)) {
+			throw new Error('excludeAliases and additionalAliases must not include the same items');
 		}
 	}
 
