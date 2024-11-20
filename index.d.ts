@@ -28,6 +28,7 @@ declare namespace NodePolyfillPlugin {
 		| 'string_decoder'
 		| 'sys'
 		| 'timers'
+		| 'timers/promises'
 		| 'tty'
 		| 'url'
 		| 'util'

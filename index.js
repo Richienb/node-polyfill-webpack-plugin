@@ -1,4 +1,6 @@
 'use strict';
+const stdLibBrowser = require('node-stdlib-browser');
+
 // https://github.com/sindresorhus/filter-obj/blob/58086b537bb622166387216bfb7da6e8184996ba/index.js#L1-L25
 function includeKeys(object, predicate) {
 	const result = {};
@@ -37,6 +39,7 @@ const defaultPolyfills = new Set([
 	'string_decoder',
 	'sys',
 	'timers',
+	'timers/promises',
 	'tty',
 	'url',
 	'util',
@@ -94,44 +97,45 @@ module.exports = class NodePolyfillPlugin {
 		const filter = createAliasFilter(this.options);
 
 		compiler.options.plugins.push(new compiler.webpack.ProvidePlugin(filter({
-			Buffer: [require.resolve('buffer/'), 'Buffer'],
-			console: require.resolve('console-browserify'),
-			process: require.resolve('process/browser'),
+			Buffer: [stdLibBrowser.buffer, 'Buffer'],
+			console: stdLibBrowser.console,
+			process: stdLibBrowser.process,
 		})));
 
 		compiler.options.resolve.fallback = {
 			...filter({
-				assert: require.resolve('assert/'),
-				buffer: require.resolve('buffer/'),
-				console: require.resolve('console-browserify'),
-				constants: require.resolve('constants-browserify'),
-				crypto: require.resolve('crypto-browserify'),
-				domain: require.resolve('domain-browser'),
-				events: require.resolve('events/'),
+				assert: stdLibBrowser.assert,
+				buffer: stdLibBrowser.buffer,
+				console: stdLibBrowser.console,
+				constants: stdLibBrowser.constants,
+				crypto: stdLibBrowser.crypto,
+				domain: stdLibBrowser.domain,
+				events: stdLibBrowser.events,
 				fs: false,
-				http: require.resolve('stream-http'),
-				https: require.resolve('https-browserify'),
-				os: require.resolve('os-browserify/browser'),
-				path: require.resolve('path-browserify'),
-				punycode: require.resolve('punycode/'),
-				process: require.resolve('process/browser'),
-				querystring: require.resolve('querystring-es3'),
-				stream: require.resolve('stream-browserify'),
+				http: stdLibBrowser.http,
+				https: stdLibBrowser.https,
+				os: stdLibBrowser.os,
+				path: stdLibBrowser.path,
+				punycode: stdLibBrowser.punycode,
+				process: stdLibBrowser.process,
+				querystring: stdLibBrowser.querystring,
+				stream: stdLibBrowser.stream,
 				/* eslint-disable camelcase */
-				_stream_duplex: require.resolve('readable-stream/lib/_stream_duplex'),
-				_stream_passthrough: require.resolve('readable-stream/lib/_stream_passthrough'),
-				_stream_readable: require.resolve('readable-stream/lib/_stream_readable'),
-				_stream_transform: require.resolve('readable-stream/lib/_stream_transform'),
-				_stream_writable: require.resolve('readable-stream/lib/_stream_writable'),
-				string_decoder: require.resolve('string_decoder/'),
+				_stream_duplex: stdLibBrowser._stream_duplex,
+				_stream_passthrough: stdLibBrowser._stream_passthrough,
+				_stream_readable: stdLibBrowser._stream_readable,
+				_stream_transform: stdLibBrowser._stream_transform,
+				_stream_writable: stdLibBrowser._stream_writable,
+				string_decoder: stdLibBrowser.string_decoder,
 				/* eslint-enable camelcase */
-				sys: require.resolve('util/'),
-				timers: require.resolve('timers-browserify'),
-				tty: require.resolve('tty-browserify'),
-				url: require.resolve('url/'),
-				util: require.resolve('util/'),
-				vm: require.resolve('vm-browserify'),
-				zlib: require.resolve('browserify-zlib'),
+				sys: stdLibBrowser.sys,
+				timers: stdLibBrowser.timers,
+				'timers/promises': stdLibBrowser['timers/promises'],
+				tty: stdLibBrowser.tty,
+				url: stdLibBrowser.url,
+				util: stdLibBrowser.util,
+				vm: stdLibBrowser.vm,
+				zlib: stdLibBrowser.zlib,
 			}),
 			...compiler.options.resolve.fallback,
 		};

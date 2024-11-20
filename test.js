@@ -1,11 +1,11 @@
-const {promises: fs} = require('node:fs');
+const {promises: fs} = require('node:fs'); // eslint-disable-line n/no-unsupported-features/node-builtins
 const test = require('ava');
 const webpack = require('p-webpack');
 const NodePolyfillPlugin = require('./index.js');
 
 test('main', async t => {
 	await webpack({
-		entry: './fixture',
+		entry: './fixtures/main',
 		output: {
 			library: {
 				type: 'commonjs-module',
@@ -33,7 +33,7 @@ test('main', async t => {
 
 test('includeAliases', async t => {
 	await webpack({
-		entry: './fixture',
+		entry: './fixtures/main',
 		output: {
 			library: {
 				type: 'commonjs-module',
