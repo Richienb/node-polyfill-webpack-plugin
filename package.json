@@ -1,6 +1,6 @@
 {
 	"name": "node-polyfill-webpack-plugin",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "Polyfill Node.js core modules in Webpack.",
 	"repository": "Richienb/node-polyfill-webpack-plugin",
 	"author": {
